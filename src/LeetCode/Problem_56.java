@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * 题解 https://leetcode-cn.com/problems/merge-intervals/solution/he-bing-de-si-lu-zi-ding-yi-pai-xu-de-3c-x6mx/
  * @author luchenl.chen
  * email: luchenl.chen@qunar.com
  * date: 2021/8/12 20:34

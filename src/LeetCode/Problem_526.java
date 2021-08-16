@@ -3,7 +3,7 @@ package LeetCode;
 public class Problem_526 {
     public static void main(String[] args) {
         Solution s = new Problem_526().new Solution();
-        s.countArrangement(3);
+        System.out.println(s.countArrangement(3));
     }
     //回溯法
     class Solution {
@@ -11,12 +11,12 @@ public class Problem_526 {
         public int countArrangement(int n) {
             //nums[i]是i的因子或倍数
             //质数的因子只能是1或者自己，又或者是倍数
-            dfs(n, new boolean[n + 1], 0);
+            dfs(n, new boolean[n + 1], 1);
             return ans;
         }
 
         void dfs(int n, boolean[] vis, int curr){
-            if(curr == n){
+            if(curr == n + 1){
                 ans++;
                 return;
             }

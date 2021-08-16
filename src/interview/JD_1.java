@@ -1,7 +1,5 @@
 package interview;
 
-import scala.Int;
-
 import java.util.*;
 
 /**

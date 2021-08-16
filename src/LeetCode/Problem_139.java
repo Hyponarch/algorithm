@@ -5,7 +5,7 @@ import java.util.*;
 public class Problem_139 {
     public static void main(String[] args) {
         Solution s = new Problem_139().new Solution();
-        s.wordBreak("leetcode", List.of("leet","code"));
+        s.wordBreak("leetcode", Arrays.asList("leet","code"));
 
     }
     class Solution {

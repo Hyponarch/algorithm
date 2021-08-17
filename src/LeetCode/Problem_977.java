@@ -1,29 +1,85 @@
 package LeetCode;
 
+import java.util.Arrays;
+
 public class Problem_977 {
+    public static void main(String[] args) {
+        Solution s = new Problem_977().new Solution();
+        System.out.println(Arrays.toString(s.sortedSquares1(new int[]{-4, -1, 0, 3, 10})));
+    }
     class Solution {
-        //本题涉及2种算法思路：1、二分搜索，2、双指针
+        //解法1，从两头向中间遍历
         public int[] sortedSquares(int[] nums) {
-            //判断是否有正有负，若是，则二分查找正负分界点，双指针朝2边遍历，每次比较指针所指数的平方，比较大小
+            //无论数字的正负，平方之后最大的数，一定是最左（最小负数）或者最右（最大整数）之一
             int len = nums.length;
             int[] ans = new int[len];
+            //左指针
             int left = 0;
+            //右指针
             int right = len - 1;
+            //ans数组的指针，每次将最大的数写入数组的后部
             int curr = len - 1;
             while(left < right){
-                int leftNum = nums[left];
-                int rightNum = nums[right];
-                if(leftNum * leftNum >= rightNum * rightNum){
+                //分别计算最左和最右的平方
+                int leftNum = nums[left] * nums[left];
+                int rightNum = nums[right] * nums[right];
+                //取较大值
+                //左侧较大时
+                if(leftNum >= rightNum){
                     ans[curr] = leftNum;
+                    //左指针右移
                     left++;
-                }else {
+                }else { //右侧较大时
                     ans[curr] = rightNum;
-                    right++;
+                    //右指针左移
+                    right--;
                 }
+                //ans指针左移
+                curr--;
             }
             return ans;
         }
 
+        // 解法2，找到正负分解点，从中间开始向两边遍历，可以从小到大获得答案
+        // 解法2涉及二分搜索
+        //判断是否有正有负，若是，则二分查找正负分界点，双指针朝2边遍历，每次比较指针所指数的平方，比较大小
+        public int[] sortedSquares1(int[] nums) {
+            int len = nums.length;
+            int[] ans = new int[len];
+
+            if(nums[0] < 0){
+                //有正有负
+                if(nums[len - 1] > 0){
+                    //二分查找大于等于0的第一个数的下标
+                    int index = binarySearch(nums, 0);
+                    int left = index - 1;
+                    int right = index;
+                    int curr = 0;
+                    //只要左右指针有一个还没到达边界
+                    while (left > -1 || right < len){
+                        //如果右侧到达边界，或者左侧更小
+                        if(left > -1 && (right == len || nums[left] * nums[left] <= nums[right] * nums[right])){
+                            //则选择左侧数的平方
+                            ans[curr] = nums[left] * nums[left];
+                            left--;
+                        }else {
+                            ans[curr] = nums[right] * nums[right];
+                            right++;
+                        }
+                        curr++;
+                    }
+                }else { //全负
+                    for(int i = 0; i < len; i++){
+                        ans[i] = nums[len - 1 - i] * nums[len - 1 - i];
+                    }
+                }
+            }else { //全正
+                for(int i = 0; i < len; i++){
+                    ans[i] = nums[i] * nums[i];
+                }
+            }
+            return ans;
+        }
         /**
          * 二分查找大于等于target的最左位置
          * @param nums  有序待查询数组

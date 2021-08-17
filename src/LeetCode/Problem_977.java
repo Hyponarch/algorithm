@@ -7,8 +7,9 @@ public class Problem_977 {
         Solution s = new Problem_977().new Solution();
         System.out.println(Arrays.toString(s.sortedSquares1(new int[]{-4, -1, 0, 3, 10})));
     }
+    //题解地址：
     class Solution {
-        //解法1，从两头向中间遍历
+        //解法1，找平方后最大的数，从两头向中间遍历
         public int[] sortedSquares(int[] nums) {
             //无论数字的正负，平方之后最大的数，一定是最左（最小负数）或者最右（最大整数）之一
             int len = nums.length;
